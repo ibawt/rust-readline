@@ -29,7 +29,9 @@ pub fn readline(prompt: &str) -> Option<String> {
             None
         }
         else {
-            Some(CStr::from_ptr(ret).to_string_lossy().into_owned())
+            let r = Some(CStr::from_ptr(ret).to_string_lossy().into_owned());
+            libc::free(ret as *mut libc::c_void);
+            r
             // let slice = CStr::from_ptr(ret);
 
             // let bytes = slice.to_bytes();
