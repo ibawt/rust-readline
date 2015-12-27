@@ -29,11 +29,12 @@ pub fn readline(prompt: &str) -> Option<String> {
             None
         }
         else {
-            let slice = CStr::from_ptr(ret);
+            Some(CStr::from_ptr(ret).to_string_lossy().into_owned())
+            // let slice = CStr::from_ptr(ret);
 
-            let bytes = slice.to_bytes();
+            // let bytes = slice.to_bytes();
 
-            Some(String::from_utf8_lossy(bytes).into_owned())
+            // Some(String::from_utf8_lossy(bytes).into_owned())
         }
     }
 }
